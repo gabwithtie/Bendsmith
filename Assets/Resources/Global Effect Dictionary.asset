@@ -15,6 +15,6 @@ MonoBehaviour:
   fallback: {fileID: 0}
   main_dictionary:
     structs:
-    - Key: projectile
-      Value: {fileID: 0}
+    - Key: hammerhit
+      Value: {fileID: 9015868241533785071, guid: 92539a3816a02934f8d43bf1166629aa, type: 3}
   sub_dictionaries: []

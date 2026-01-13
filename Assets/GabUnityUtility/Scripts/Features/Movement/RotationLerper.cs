@@ -25,7 +25,7 @@ namespace GabUnity
             if (Mathf.Abs(new_t - current_t) > 0.001f)
             {
                 current_t = new_t;
-                transform.localScale = Vector3.Lerp(rot_a, rot_b, current_t);
+                transform.localRotation = Quaternion.Euler(Vector3.Lerp(rot_a, rot_b, current_t));
             }
         }
     }
