@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414f876310b653040bffdd6035b83039, type: 3}
+  m_Name: Global Effect Dictionary
+  m_EditorClassIdentifier: Assembly-CSharp::GabUnity.GlobalEffectDictionary
+  fallback: {fileID: 0}
+  main_dictionary:
+    structs:
+    - Key: hammerhit
+      Value: {fileID: 9015868241533785071, guid: 92539a3816a02934f8d43bf1166629aa, type: 3}
+  sub_dictionaries: []

@@ -13,6 +13,7 @@ namespace GabUnity
 
         public static void Spawn(string id, Vector3 position, Vector3 direction)
         {
+
             if (Instance.globaleffects.ContainsKey(id) == false) {
                 var neweffect = GlobalEffectDictionary.Get(id);
 
