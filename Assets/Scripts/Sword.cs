@@ -20,7 +20,7 @@ public class Sword : MonoBehaviour
 
     public List<Vector3> GetCurrentCurve()
     {
-        return vertexes.Select(v => v.position).ToList();
+        return vertexes.Select(v => v.localPosition).ToList();
     }
 
     public void ResetSword()
