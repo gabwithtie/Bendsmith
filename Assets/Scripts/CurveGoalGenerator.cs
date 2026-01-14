@@ -47,7 +47,7 @@ public class CurveGoalGenerator : MonoBehaviour
         if (current_curve == null || current_curve.Count < 2 || other == null || other.Count < 2)
             return 0;
 
-        return GetNormalizedPositionScore(current_curve, other, amplitude_mult);
+        return GetNormalizedPositionScore(current_curve, other, amplitude_mult * 0.8f);
     }
 
     /// <summary>

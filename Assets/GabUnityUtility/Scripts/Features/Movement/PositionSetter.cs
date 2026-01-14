@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PositionLerper : MonoBehaviour
+public class PositionSetter : MonoBehaviour
 {
     [SerializeField] private Vector3 pos_0;
     [SerializeField] private Vector3 pos_1;

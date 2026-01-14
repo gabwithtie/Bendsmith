@@ -24,6 +24,11 @@ public class TargetTweener : MonoBehaviour
     private float _timeplaying;
     private bool _playing = false;
 
+    public void SetTarget(Vector3 worldpos)
+    {
+        target = worldpos;
+    }
+
     public void PlayToTarget(Vector3 worldpos)
     {
         target = worldpos;
@@ -83,6 +88,6 @@ public class TargetTweener : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawSphere(reset_pos, 1);
+        Gizmos.DrawWireSphere(reset_pos, 0.1f);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Sword : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Sword : MonoBehaviour
     [SerializeField] private float yDisplacementWeight = 0.2f;
     [SerializeField] private bool lockFirstVertex = true; // Toggle to anchor the hilt
 
+    [SerializeField] private UnityEvent onReset;
+
     private void Start()
     {
         ResetSword();
@@ -24,6 +27,11 @@ public class Sword : MonoBehaviour
     }
 
     public void ResetSword()
+    {
+        onReset.Invoke();
+    }
+
+    public void ResetVertexList()
     {
         // Reset vertexes to their initial straight configuration
         for (int i = 0; i < vertexes.Count; i++)
@@ -39,14 +47,19 @@ public class Sword : MonoBehaviour
         // If we lock the first vertex, we start the loop from index 1
         int startIndex = lockFirstVertex ? 1 : 0;
 
+        int hitcount = 0;
+
         for (int i = startIndex; i < vertexes.Count; i++)
         {
             Transform vertex = vertexes[i];
-            float distance = Vector3.Distance(pos, vertex.position);
+            float sqrdistance = Vector3.SqrMagnitude(pos - vertex.position);
 
-            if (distance < radius)
+            if (sqrdistance < radius * radius)
             {
-                float falloff = 1f - (distance / radius);
+                hitcount++;
+                float dist = Vector3.Distance(pos, vertex.position);
+
+                float falloff = 1f - (dist / radius);
                 Vector3 dir = (vertex.position - pos).normalized;
 
                 if (dir == Vector3.zero) dir = -transform.up;
@@ -59,7 +72,8 @@ public class Sword : MonoBehaviour
         }
 
         // Equalize spacing along the new curve
-        RedistributeVertexes();
+        if(hitcount > 0)
+            RedistributeVertexes();
     }
 
     public void RedistributeVertexes()
