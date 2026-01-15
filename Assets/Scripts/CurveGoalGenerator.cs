@@ -11,6 +11,8 @@ public class CurveGoalGenerator : MonoBehaviour
 
     private List<Vector3> current_curve;
 
+    public List<Vector3> GetCurrentCurve() => current_curve;
+
     [ContextMenu("Generate New Curve")]
     public void GenerateCurveGoal()
     {
@@ -47,7 +49,7 @@ public class CurveGoalGenerator : MonoBehaviour
         if (current_curve == null || current_curve.Count < 2 || other == null || other.Count < 2)
             return 0;
 
-        return GetNormalizedPositionScore(current_curve, other, amplitude_mult * 0.8f);
+        return GetNormalizedPositionScore(other, current_curve, amplitude_mult * 0.5f);
     }
 
     /// <summary>
@@ -106,9 +108,10 @@ public class CurveGoalGenerator : MonoBehaviour
         foreach (var p in rawPoints)
         {
             // Shift so first X is 0, and Z is scaled between 0 and 1
-            float normX = p.x - startPos.x;
-            float normZ = (p.z - minZ) / zRange;
-            normalized.Add(new Vector3(normX, 0, normZ));
+            Vector3 normpos = p - startPos;
+            normpos /= zRange;
+
+            normalized.Add(normpos);
         }
 
         return normalized;

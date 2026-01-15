@@ -21,6 +21,7 @@ namespace GabUnity
         }
 
         [SerializeField] private List<PositionTweenTarget> targets = new List<PositionTweenTarget>();
+        [SerializeField] private UnityEvent onComplete;
         [SerializeField] private bool loop = false;
 
         private int _currentIndex = 0;
@@ -97,10 +98,13 @@ namespace GabUnity
                 {
                     _currentIndex = 0;
                     SetupNextSegment();
+
+                    onComplete.Invoke();
                 }
                 else
                 {
                     _isPlaying = false;
+                    onComplete.Invoke();
                 }
             }
         }
