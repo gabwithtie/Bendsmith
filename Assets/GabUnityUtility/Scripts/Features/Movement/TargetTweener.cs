@@ -24,6 +24,10 @@ public class TargetTweener : MonoBehaviour
     private float _timeplaying;
     private bool _playing = false;
 
+    public void SetDuration(float dur)
+    {
+        duration = dur;
+    }
     public void SetTarget(Vector3 worldpos)
     {
         target = worldpos;

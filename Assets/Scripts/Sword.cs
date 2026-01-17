@@ -9,9 +9,7 @@ public class Sword : MonoBehaviour
     [SerializeField] private List<Transform> vertexes;
 
     [Header("Deformation Settings")]
-    [SerializeField] private float default_length = 5.0f;
-    [Range(0f, 1f)]
-    [SerializeField] private float yDisplacementWeight = 0.2f;
+    [SerializeField] private float length = 5.0f;
     [SerializeField] private bool lockFirstVertex = true; // Toggle to anchor the hilt
 
     [SerializeField] private UnityEvent onReset;
@@ -37,7 +35,7 @@ public class Sword : MonoBehaviour
         for (int i = 0; i < vertexes.Count; i++)
         {
             float t = (float)i / (vertexes.Count - 1);
-            vertexes[i].localPosition = new Vector3(0, 0, t * default_length);
+            vertexes[i].localPosition = new Vector3(0, 0, t * length);
         }
     }
 
@@ -52,6 +50,8 @@ public class Sword : MonoBehaviour
         for (int i = startIndex; i < vertexes.Count; i++)
         {
             Transform vertex = vertexes[i];
+            pos.y = vertex.position.y;
+
             float sqrdistance = Vector3.SqrMagnitude(pos - vertex.position);
 
             if (sqrdistance < radius * radius)
@@ -65,7 +65,7 @@ public class Sword : MonoBehaviour
                 if (dir == Vector3.zero) dir = -transform.up;
 
                 Vector3 displacement = dir * force * falloff;
-                displacement.y *= yDisplacementWeight;
+                displacement.y = 0;
 
                 vertex.position += displacement;
             }
@@ -80,20 +80,30 @@ public class Sword : MonoBehaviour
     {
         if (vertexes == null || vertexes.Count < 2) return;
 
-        float totalLength = 0;
-        List<float> segmentLengths = new List<float>();
-
+        // 1. Calculate the current actual length of the curve
+        float actualLength = 0;
         for (int i = 0; i < vertexes.Count - 1; i++)
         {
-            float dist = Vector3.Distance(vertexes[i].position, vertexes[i + 1].position);
-            segmentLengths.Add(dist);
-            totalLength += dist;
+            actualLength += Vector3.Distance(vertexes[i].position, vertexes[i + 1].position);
         }
 
-        Vector3[] sampledPositions = vertexes.Select(v => v.position).ToArray();
-        float targetInterval = totalLength / (vertexes.Count - 1);
+        // 2. Determine the redistribution length (cannot exceed maxLength)
+        float clampedLength = Mathf.Min(actualLength, length);
 
-        // This loop already protects the first (0) and last (count-1) indices
+        // Store positions before moving anything for sampling
+        Vector3[] sampledPositions = vertexes.Select(v => v.position).ToArray();
+
+        // 3. Calculate intervals based on the clamped length
+        float targetInterval = clampedLength / (vertexes.Count - 1);
+
+        // 4. Update the tip position if the sword was too long
+        // This pulls the tip back toward the hilt along the existing path
+        if (actualLength > length)
+        {
+            vertexes[vertexes.Count - 1].position = GetPointOnPath(sampledPositions, length);
+        }
+
+        // 5. Redistribute intermediate vertices
         for (int i = 1; i < vertexes.Count - 1; i++)
         {
             float targetDist = i * targetInterval;
