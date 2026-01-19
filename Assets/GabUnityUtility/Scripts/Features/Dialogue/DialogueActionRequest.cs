@@ -1,4 +1,4 @@
-﻿using GabUnity.ActionBroadcaster;
+﻿
 using External.Dialogue;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace GabUnity.ActionRequestTypes
+namespace GabUnity
 {
     [CreateAssetMenu(menuName = "GabUnity/ActionRequest/Dialogue")]
     public class DialogueActionRequest : ActionRequest

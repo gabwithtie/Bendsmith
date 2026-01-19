@@ -11,6 +11,8 @@ public class CurveGoalGenerator : MonoBehaviour
 
     private List<Vector3> current_curve;
 
+    public List<Vector3> GetCurrentCurve() => current_curve;
+
     [ContextMenu("Generate New Curve")]
     public void GenerateCurveGoal()
     {
@@ -47,7 +49,7 @@ public class CurveGoalGenerator : MonoBehaviour
         if (current_curve == null || current_curve.Count < 2 || other == null || other.Count < 2)
             return 0;
 
-        return GetNormalizedPositionScore(current_curve, other, amplitude_mult);
+        return GetNormalizedPositionScore(other, current_curve, amplitude_mult * 0.5f);
     }
 
     /// <summary>
@@ -60,29 +62,36 @@ public class CurveGoalGenerator : MonoBehaviour
         if (playerSword == null || goalCurve == null || playerSword.Count < 2 || goalCurve.Count < 2)
             return 0f;
 
-        // 1. Normalize both curves to a local [0,1] Z-space
         List<Vector3> normPlayer = NormalizeCurve(playerSword);
         List<Vector3> normGoal = NormalizeCurve(goalCurve);
 
-        float totalXError = 0f;
-        int sampleSteps = 25;
+        float scoreAccumulator = 0f;
+        int sampleSteps = 30;
 
-        // 2. Sample and compare X values at standardized Z-intervals
         for (int i = 0; i < sampleSteps; i++)
         {
             float t = i / (float)(sampleSteps - 1);
+            float xPlayer = GetXAtNormalizedZ(normPlayer, t);
+            float xGoal = GetXAtNormalizedZ(normGoal, t);
 
-            // Find the X value at the specific normalized Z progress
-            float xA = GetXAtNormalizedZ(normPlayer, t);
-            float xB = GetXAtNormalizedZ(normGoal, t);
+            // 1. Calculate raw distance error
+            float distance = Mathf.Abs(xPlayer - xGoal);
 
-            totalXError += Mathf.Abs(xA - xB);
+            // 2. Square the error (Quadratic Penalty)
+            // This makes small errors negligible but large errors (like missing a curve) catastrophic
+            float errorNormalized = Mathf.Clamp01(distance / maxXError);
+            float penalty = errorNormalized * errorNormalized;
+
+            // 3. Reward "Directional Intent"
+            // If both the player and goal are on the same side of the center (X=0),
+            // we give a small bonus to the score for that sample.
+            float intentBonus = (Mathf.Sign(xPlayer) == Mathf.Sign(xGoal) && Mathf.Abs(xGoal) > 0.1f) ? 1.1f : 1.0f;
+
+            scoreAccumulator += (1f - penalty) * intentBonus;
         }
 
-        float averageXError = totalXError / sampleSteps;
-
-        // 3. Map error to 0-1 score based on allowed X tolerance
-        return Mathf.Clamp01(1f - (averageXError / maxXError));
+        // Average the results and clamp
+        return Mathf.Clamp01(scoreAccumulator / sampleSteps);
     }
 
     private List<Vector3> NormalizeCurve(List<Vector3> rawPoints)
@@ -106,9 +115,10 @@ public class CurveGoalGenerator : MonoBehaviour
         foreach (var p in rawPoints)
         {
             // Shift so first X is 0, and Z is scaled between 0 and 1
-            float normX = p.x - startPos.x;
-            float normZ = (p.z - minZ) / zRange;
-            normalized.Add(new Vector3(normX, 0, normZ));
+            Vector3 normpos = p - startPos;
+            normpos /= zRange;
+
+            normalized.Add(normpos);
         }
 
         return normalized;

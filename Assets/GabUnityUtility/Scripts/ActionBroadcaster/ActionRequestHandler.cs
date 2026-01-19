@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace GabUnity.ActionBroadcaster
+namespace GabUnity
 {
     public abstract class ActionRequestHandler_Base : MonoBehaviour
     {

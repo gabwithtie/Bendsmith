@@ -75,19 +75,22 @@ namespace GabUnity
                     var normal = Vector3.up;
                     time_last_spawned = 0f;
 
-                    var hitsmth = Physics.RaycastNonAlloc(new Ray(point_a.position, point_b.position - point_a.position), hitinfos);
-
-                    if(hitsmth > 0)
+                    if (use_raycast)
                     {
-                        foreach (var hitinfo in hitinfos)
+                        var hitsmth = Physics.RaycastNonAlloc(new Ray(point_a.position, point_b.position - point_a.position), hitinfos);
+
+                        if (hitsmth > 0)
                         {
-                            if (ignorecolliders.Contains(hitinfo.collider))
-                                continue;
+                            foreach (var hitinfo in hitinfos)
+                            {
+                                if (ignorecolliders.Contains(hitinfo.collider))
+                                    continue;
 
-                            end_pos = hitinfo.point;
-                            normal = hitinfo.normal;
+                                end_pos = hitinfo.point;
+                                normal = hitinfo.normal;
 
-                            break;
+                                break;
+                            }
                         }
                     }
 
