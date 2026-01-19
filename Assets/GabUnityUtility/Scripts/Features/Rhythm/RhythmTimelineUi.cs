@@ -25,7 +25,6 @@ namespace GabUnity
         [SerializeField] private float scale = 100f;
         [SerializeField] private GameObject beatmarker_major_prefab;
         [SerializeField] private GameObject beatmarker_minor_prefab;
-        [SerializeField] private float max_error_good = 0.1f;
         [SerializeField] private GameObject userinput_prefab_bad;
         [SerializeField] private GameObject userinput_prefab_good;
 
@@ -49,14 +48,8 @@ namespace GabUnity
         public void OnUserHit()
         {
             float hitTime = CurrentTime;
-            float step = SecondsPerBeat;
-
-            float targetTime = Mathf.Round(hitTime / step) * step;
-            float error = Mathf.Abs(hitTime - targetTime);
-            bool isGood = error <= max_error_good;
-
             // Spawn the feedback as a timeline marker
-            SpawnFeedbackMarker(hitTime, isGood);
+            SpawnFeedbackMarker(hitTime, RhythmManager.IsGood());
         }
 
         void Update()

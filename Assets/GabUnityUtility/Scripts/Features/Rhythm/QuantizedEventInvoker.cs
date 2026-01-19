@@ -6,11 +6,12 @@ namespace GabUnity
 {
     public class QuantizedEventInvoker : MonoSingleton<QuantizedEventInvoker>
     {
-        [SerializeField] private float interval = 1;
+        [SerializeField] private int beat_offset = 1;
+        [SerializeField] private int interval = 2;
         [SerializeField] private float lookahead = 0.07f;
         [SerializeField] private float minimum_time = 0.15f;
-        public static float BarLength => (60.0f / RhythmManager.Bpm) * Instance.interval;
-        public static float RemainingTillNextBar => BarLength - (RhythmManager.Time % BarLength);
+        public static float BarLength => RhythmManager.SecondsPerBeat * Instance.interval;
+        public static float RemainingTillNextFireTime => BarLength - ((RhythmManager.Time + (RhythmManager.SecondsPerBeat * Instance.beat_offset)) % BarLength);
 
         private static List<System.Action> invokelist = new List<System.Action>();
         private static List<System.Action> invokelist_next = new List<System.Action>();
@@ -19,35 +20,33 @@ namespace GabUnity
 
         public static float GetNextInvokationFromNow()
         {
-            if (RemainingTillNextBar < Instance.minimum_time)
+            if (RemainingTillNextFireTime < Instance.minimum_time)
             {
-                return RemainingTillNextBar + BarLength;
+                return RemainingTillNextFireTime + BarLength;
             }
             else
             {
-                return RemainingTillNextBar;
+                return RemainingTillNextFireTime;
             }
         }
 
         public static float InvokeOnNext(System.Action action)
         {
-            if (RemainingTillNextBar < Instance.minimum_time)
+            if (RemainingTillNextFireTime < Instance.minimum_time)
             {
                 invokelist_next.Add(action);
-                return RemainingTillNextBar + BarLength;
+                return RemainingTillNextFireTime + BarLength;
             }
             else
             {
                 invokelist.Add(action);
-                return RemainingTillNextBar;
+                return RemainingTillNextFireTime;
             }
         }
 
         private void Update()
         {
-            float cur_progress_in_bar = RhythmManager.Time % BarLength;
-
-            if(cur_progress_in_bar - lookahead < 0)
+            if(RemainingTillNextFireTime < lookahead)
             {
                 if (invoked_this_bar)
                     return;
