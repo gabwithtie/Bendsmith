@@ -8,7 +8,7 @@ public class CurveDisplayer : MonoBehaviour
 {
     LineRenderer line_renderer;
 
-    private List<Vector3> _curve_cache;
+    private List<Vector3> _curve_cache = new();
 
     private void Awake()
     {

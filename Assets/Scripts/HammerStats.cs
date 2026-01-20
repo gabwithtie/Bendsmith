@@ -21,12 +21,18 @@ public class HammerStats : MonoSingleton<HammerStats>
     [SerializeField] private UpgradeBucket bucket_radius;
     public static float HammingMaxRadius => Instance.hammerMaxRadius;
 
+    private void OnBroke() => Popupper.Popup("Not enough currency.");
+
     public void UpgradeDurability()
     {
         if (CurrencyManager.Spend(cost_durability))
         {
             maxHammerDurability += interval_durability;
             bucket_durability.TriggerUpgradeEffects();
+        }
+        else
+        {
+            OnBroke();
         }
     }
 
@@ -37,6 +43,10 @@ public class HammerStats : MonoSingleton<HammerStats>
             hammerForce += interval_force;
             bucket_radius.TriggerUpgradeEffects();
         }
+        else
+        {
+            OnBroke();
+        }
     }
 
     public void UpgradeRadius()
@@ -45,6 +55,10 @@ public class HammerStats : MonoSingleton<HammerStats>
         {
             hammerMaxRadius += interval_radius;
             bucket_radius.TriggerUpgradeEffects();
+        }
+        else
+        {
+            OnBroke();
         }
     }
 }
