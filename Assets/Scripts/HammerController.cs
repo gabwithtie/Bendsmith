@@ -4,15 +4,22 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(ComboCounter))]
-public class SwordHitter : MonoBehaviour
+public class HammerController : MonoBehaviour
 {
-    [SerializeField]private Sword sword;
+    [Header("Runtime")]
+    [SerializeField] private int cur_durability = 1;
+
+    [Header("Visuals")]
     [SerializeField]private RadiusVisualizer radiusVisualizer;
 
+    [Header("Events")]
     [SerializeField] private UnityEvent<float> onSetQuantizedDuration;
+    [SerializeField] private UnityEvent<int> onChangeDurability;
     [SerializeField] private UnityEvent<Vector3> onCommitHit;
     [SerializeField] private UnityEvent onActualHit;
+    [SerializeField] private ActionRequest hammerbreak_request;
 
+    private Sword _sword;
     private ComboCounter _comboCounter;
 
     private bool _holding;
@@ -22,7 +29,14 @@ public class SwordHitter : MonoBehaviour
 
     private void Awake()
     {
+        _sword = FindAnyObjectByType<Sword>();
         _comboCounter = GetComponent<ComboCounter>();
+    }
+
+    public void NewStage()
+    {
+        cur_durability = HammerStats.MaxHammerDurability;
+        onChangeDurability.Invoke(cur_durability);
     }
 
     public void StartHold(Vector3 pos)
@@ -74,6 +88,15 @@ public class SwordHitter : MonoBehaviour
                 hittext = "Late";
 
             _comboCounter.ResetCombo();
+
+            cur_durability--;
+            onChangeDurability.Invoke(cur_durability);
+
+            if (cur_durability <= 0)
+            {
+                //End Game Here
+                ActionRequestManager.Request(hammerbreak_request);
+            }
         }
 
         TextParticle.SpawnText(hittext, _holdpos, 1, 0.3f, textcolor);
@@ -82,7 +105,7 @@ public class SwordHitter : MonoBehaviour
     public void Hit()
     {
         _dragdist = Mathf.Clamp(_dragdist, 0, HammerStats.HammingMaxRadius);
-        sword.Hit(_holdpos, HammerStats.HammerForce, _dragdist);
+        _sword.Hit(_holdpos, HammerStats.HammerForce, _dragdist);
 
         _waitingforhit = false;
         onActualHit.Invoke();

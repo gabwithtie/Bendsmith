@@ -42,7 +42,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Start()
     {
-        curve_goal_generator.GenerateCurveGoal();
+        SetMainMode();
     }
 
     [ContextMenu("Submit Current Work")]
@@ -81,5 +81,10 @@ public class GameManager : MonoSingleton<GameManager>
     public void SetMainMode()
     {
         ActionRequestManager.Request(set_main_mode_request);
+    }
+
+    public void SetGameOver()
+    {
+
     }
 }

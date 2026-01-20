@@ -3,23 +3,30 @@ using UnityEngine;
 
 public class HammerStats : MonoSingleton<HammerStats>
 {
-    [SerializeField] private int maxHammerDurability = 50;
+    [SerializeField] private int maxHammerDurability = 20;
+    [SerializeField] private int interval_durability = 2;
     [SerializeField] private CurrencyChangeInfo cost_durability;
+    [SerializeField] private UpgradeBucket bucket_durability;
     public static int MaxHammerDurability => Instance.maxHammerDurability;
 
     [SerializeField] private float hammerForce = 0.6f;
+    [SerializeField] private float interval_force = 0.1f;
     [SerializeField] private CurrencyChangeInfo cost_force;
+    [SerializeField] private UpgradeBucket bucket_force;
     public static float HammerForce => Instance.hammerForce;
 
-    [SerializeField] private float hammerMaxRadius = 2.0f;
+    [SerializeField] private float hammerMaxRadius = 1.0f;
+    [SerializeField] private float interval_radius = 0.3f;
     [SerializeField] private CurrencyChangeInfo cost_radius;
+    [SerializeField] private UpgradeBucket bucket_radius;
     public static float HammingMaxRadius => Instance.hammerMaxRadius;
 
     public void UpgradeDurability()
     {
         if (CurrencyManager.Spend(cost_durability))
         {
-            maxHammerDurability += 2;
+            maxHammerDurability += interval_durability;
+            bucket_durability.TriggerUpgradeEffects();
         }
     }
 
@@ -27,7 +34,8 @@ public class HammerStats : MonoSingleton<HammerStats>
     {
         if (CurrencyManager.Spend(cost_force))
         {
-            hammerForce += 0.1f;
+            hammerForce += interval_force;
+            bucket_radius.TriggerUpgradeEffects();
         }
     }
 
@@ -35,7 +43,8 @@ public class HammerStats : MonoSingleton<HammerStats>
     {
         if (CurrencyManager.Spend(cost_radius))
         {
-            hammerMaxRadius += 0.1f;
+            hammerMaxRadius += interval_radius;
+            bucket_radius.TriggerUpgradeEffects();
         }
     }
 }

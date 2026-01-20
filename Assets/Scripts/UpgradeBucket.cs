@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Bucket : MonoBehaviour
+public class UpgradeBucket : MonoBehaviour
 {
     [SerializeField] private ParticleSystem own_particles;
     [SerializeField] private ParticleSystem hammer_particles;
