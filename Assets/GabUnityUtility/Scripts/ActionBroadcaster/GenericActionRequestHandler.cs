@@ -16,7 +16,7 @@ namespace GabUnity
         [SerializeField] private List<GenericActionRequestEvent> request_events = new();
 
 
-        private void Start()
+        private void Awake()
         {
             ActionRequestManager.RegisterHandler(request_events[0].listening_for.GetType(), this);
         }

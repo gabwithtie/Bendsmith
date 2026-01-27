@@ -7,6 +7,7 @@ public class Sword : MonoBehaviour
 {
     // Vertexes of the sword skinned mesh (assumed to be in order from hilt to tip)
     [SerializeField] private List<Transform> vertexes;
+    [SerializeField] private List<Transform> reflect_list;
 
     [Header("Deformation Settings")]
     [SerializeField] private float length = 5.0f;
@@ -36,6 +37,16 @@ public class Sword : MonoBehaviour
         {
             float t = (float)i / (vertexes.Count - 1);
             vertexes[i].localPosition = new Vector3(0, 0, t * length);
+        }
+
+        ApplyToReflect();
+    }
+
+    public void ApplyToReflect()
+    {
+        for(int i = 0; i < reflect_list.Count; i++)
+        {
+            reflect_list[i].position = vertexes[i].position;
         }
     }
 
@@ -74,6 +85,8 @@ public class Sword : MonoBehaviour
         // Equalize spacing along the new curve
         if(hitcount > 0)
             RedistributeVertexes();
+
+        ApplyToReflect();
     }
 
     public void RedistributeVertexes()
@@ -109,6 +122,8 @@ public class Sword : MonoBehaviour
             float targetDist = i * targetInterval;
             vertexes[i].position = GetPointOnPath(sampledPositions, targetDist);
         }
+
+        ApplyToReflect();
     }
 
     private Vector3 GetPointOnPath(Vector3[] path, float distance)
