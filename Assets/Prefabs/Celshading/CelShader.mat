@@ -37,12 +37,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ColorThreshold: 5.81
+    - _ColorThreshold: 0.001
     - _Cuts: 3
-    - _DepthScaling: 839.86
-    - _DistanceThreshold: 0.046
-    - _NormalThreshold: 0.15
-    - _SamplingDistance: 2
-    m_Colors: []
+    - _DepthScaling: 83.72
+    - _DistanceThreshold: 0.19
+    - _NormalThreshold: 0.7
+    - _SamplingDistance: 5
+    m_Colors:
+    - _Outline_Color: {r: 0.37936097, g: 0.39679936, b: 0.5188679, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
