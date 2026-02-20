@@ -40,6 +40,17 @@ namespace GabUnity
             else
                 return Time % (SecondsPerBeat * interval);
         }
+        public static float TimeInBeatNormalized(int interval = 1, bool inversed = false)
+        {
+            var time = 0.0f;
+
+            if (inversed)
+                time = (SecondsPerBeat * interval) - (Time % (SecondsPerBeat * interval));
+            else
+                time = Time % (SecondsPerBeat * interval);
+
+            return time / (SecondsPerBeat * interval);
+        }
         public static float SecondsPerBeat => 60f / Bpm;
 
         [SerializeField] private AudioSource basis;

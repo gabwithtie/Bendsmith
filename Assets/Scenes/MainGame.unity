@@ -469,25 +469,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c848f55974c87442a24eb10f567b9b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GabUnity.RhythmManager
-  bpm: 100
+  bpm: 90
   max_error: 0.06
   beatsperbar: 4
   lookahead: 0.05
   onChangeBar:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1305308884}
-        m_TargetAssemblyTypeName: GabUnity.AudioOneShotter, Assembly-CSharp
-        m_MethodName: SetIndex
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   prev_bar: -1
   prev_beat: -1
   beatChangeEvents:
@@ -4062,9 +4050,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GabUnity.QuantizedEventInvoker
   beat_offset: 1
-  interval: 2
+  interval: 1
   lookahead: 0.03
-  minimum_time: 0.1
+  minimum_time: 0.5
 --- !u!1 &908537778
 GameObject:
   m_ObjectHideFlags: 0
@@ -4793,22 +4781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GabUnity.AudioOneShotter
   clips:
-  - {fileID: 8300000, guid: a822a23a912834b43aeb7da3af508398, type: 3}
-  - {fileID: 8300000, guid: af6c93136b70e424aa3eaadc23a54bd0, type: 3}
-  - {fileID: 8300000, guid: 8aafceb4b16b73841860a91895adef49, type: 3}
-  - {fileID: 8300000, guid: af6c93136b70e424aa3eaadc23a54bd0, type: 3}
-  - {fileID: 8300000, guid: 2376d8dd05aea8b40b67862393685e43, type: 3}
-  - {fileID: 8300000, guid: 00097e185ba11e24a933790d8caf2ed9, type: 3}
-  - {fileID: 8300000, guid: 0d487c2b6963e9647b771f8bd5bd5e01, type: 3}
-  - {fileID: 8300000, guid: 00097e185ba11e24a933790d8caf2ed9, type: 3}
-  - {fileID: 8300000, guid: 065e64f7a87e4bb4d8b18c0078fdece7, type: 3}
-  - {fileID: 8300000, guid: 3eab49546f3e760468e8dbf99c718eee, type: 3}
-  - {fileID: 8300000, guid: f57d5b6b7ab90d44fa6efa1f0c61ed30, type: 3}
-  - {fileID: 8300000, guid: 3eab49546f3e760468e8dbf99c718eee, type: 3}
-  - {fileID: 8300000, guid: 7be93e8dae7ee144aa1333b845ef839a, type: 3}
-  - {fileID: 8300000, guid: 64db4b494e3a76e4583551d2a9ed8cbc, type: 3}
-  - {fileID: 8300000, guid: 017dff0b0af576a4a8f123b841c382ef, type: 3}
-  - {fileID: 8300000, guid: bb4e3e4d44999d841b993dc9517ec9ab, type: 3}
+  - {fileID: 8300000, guid: 1f212f43f884d1840b94c77a6ad23373, type: 3}
   auto_increment: 0
 --- !u!82 &1123967367
 AudioSource:
@@ -10334,6 +10307,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1563895839}
+        m_TargetAssemblyTypeName: GabUnity.GlobalEffectSpawner, Assembly-CSharp
+        m_MethodName: SetPos
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onActualHit:
     m_PersistentCalls:
       m_Calls:
@@ -10555,14 +10540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GabUnity.AudioOneShotter
   clips:
-  - {fileID: 8300000, guid: 1f85782d3b2aaa8438fe50eea6e267ea, type: 3}
-  - {fileID: 8300000, guid: 1f85782d3b2aaa8438fe50eea6e267ea, type: 3}
-  - {fileID: 8300000, guid: 55fa6b65cbfac9e4896c4e1df53f3ae8, type: 3}
-  - {fileID: 8300000, guid: 55fa6b65cbfac9e4896c4e1df53f3ae8, type: 3}
-  - {fileID: 8300000, guid: e0f80b52c1bd0d044a8112d9cbe0eeb9, type: 3}
-  - {fileID: 8300000, guid: e0f80b52c1bd0d044a8112d9cbe0eeb9, type: 3}
-  - {fileID: 8300000, guid: 55fa6b65cbfac9e4896c4e1df53f3ae8, type: 3}
-  - {fileID: 8300000, guid: 55fa6b65cbfac9e4896c4e1df53f3ae8, type: 3}
+  - {fileID: 8300000, guid: a822a23a912834b43aeb7da3af508398, type: 3}
   auto_increment: 0
 --- !u!82 &1305308885
 AudioSource:
@@ -17352,135 +17330,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 72218268}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1843461831
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1843461832}
-  - component: {fileID: 1843461833}
-  m_Layer: 0
-  m_Name: track 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1843461832
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843461831}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.12789, y: -1.8197801, z: 3.0195298}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2073784484}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1843461833
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843461831}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: c6a759d516361bb4a9fa8a35ce6ae9ee, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 0
-  MinDistance: 1
-  MaxDistance: 200
-  Pan2D: 0
-  rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1905646497
 GameObject:
   m_ObjectHideFlags: 0
@@ -18060,45 +17909,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1563895839}
-        m_TargetAssemblyTypeName: GabUnity.GlobalEffectSpawner, Assembly-CSharp
-        m_MethodName: SetPos
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 803214833}
-        m_TargetAssemblyTypeName: TargetTweener, Assembly-CSharp
-        m_MethodName: SetTarget
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   OnDrag:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1260001142}
-        m_TargetAssemblyTypeName: SwordHitter, Assembly-CSharp
-        m_MethodName: OnDrag
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnUp:
     m_PersistentCalls:
       m_Calls:
@@ -23242,7 +23055,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 973382183}
-  - {fileID: 1843461832}
   m_Father: {fileID: 1260001143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2073784485
@@ -23259,9 +23071,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SynchronizedTrackSwitcher
   tracks:
   - {fileID: 973382182}
-  - {fileID: 1843461833}
   cur_track: 0
-  fade_time: 0.5
+  fade_time: 0.1
   onSwitch:
     m_PersistentCalls:
       m_Calls:

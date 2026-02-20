@@ -25,6 +25,7 @@ public class HammerController : MonoBehaviour
     private bool _holding;
     private bool _waitingforhit;
     private Vector3 _holdpos;
+    private Vector3 _committedpos;
     private float _dragdist;
 
     private void Awake()
@@ -48,11 +49,6 @@ public class HammerController : MonoBehaviour
         radiusVisualizer.SetPosition(pos);
     }
 
-    public void OnDrag(Vector3 pos)
-    {
-        _dragdist = (_holdpos - pos).magnitude;
-    }
-
     public void StopHold()
     {
         if (!_holding)
@@ -64,11 +60,13 @@ public class HammerController : MonoBehaviour
         if (_waitingforhit)
             return;
         
-        float delay = QuantizedEventInvoker.InvokeOnNext(Hit);
-        onSetQuantizedDuration.Invoke(delay);
-        onCommitHit.Invoke(_holdpos);
-
         _waitingforhit = true;
+        _committedpos = _holdpos;
+
+        float delay = QuantizedEventInvoker.GetNextInvokationFromNow();
+        Invoke(nameof(Hit), delay);
+        onSetQuantizedDuration.Invoke(delay);
+        onCommitHit.Invoke(_committedpos);
 
         bool goodrelease = RhythmManager.IsGood(out int rhythmresult);
         Color textcolor = goodrelease ? Color.green : Color.red;
@@ -99,13 +97,13 @@ public class HammerController : MonoBehaviour
             }
         }
 
-        TextParticle.SpawnText(hittext, _holdpos, 1, 0.3f, textcolor);
+        TextParticle.SpawnText(hittext, _committedpos, 1, 0.3f, textcolor);
     }
 
     public void Hit()
     {
         _dragdist = Mathf.Clamp(_dragdist, 0, HammerStats.HammingMaxRadius);
-        _sword.Hit(_holdpos, HammerStats.HammerForce, _dragdist);
+        _sword.Hit(_committedpos, HammerStats.HammerForce, _dragdist);
 
         _waitingforhit = false;
         onActualHit.Invoke();
@@ -115,6 +113,7 @@ public class HammerController : MonoBehaviour
     {
         if (_holding)
         {
+            _dragdist += Mathf.LerpUnclamped(0, HammerStats.HammingMaxRadius, Time.deltaTime / RhythmManager.SecondsPerBeat);
             _dragdist = Mathf.Clamp(_dragdist, 0, HammerStats.HammingMaxRadius);
             radiusVisualizer.SetT(_dragdist);
         }

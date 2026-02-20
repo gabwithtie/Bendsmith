@@ -42,11 +42,39 @@ public class Sword : MonoBehaviour
         ApplyToReflect();
     }
 
-    public void ApplyToReflect()
+    public void ApplyToReflect(bool rotateForward = false)
     {
-        for(int i = 0; i < reflect_list.Count; i++)
+        if (reflect_list == null || vertexes == null || reflect_list.Count != vertexes.Count) return;
+
+        for (int i = 0; i < reflect_list.Count; i++)
         {
+            // 1. Sync the position
             reflect_list[i].position = vertexes[i].position;
+
+            // 2. Calculate the Tangent (Direction of the curve)
+            Vector3 tangent;
+            if (i == 0)
+                tangent = (vertexes[i + 1].position - vertexes[i].position).normalized;
+            else if (i == vertexes.Count - 1)
+                tangent = (vertexes[i].position - vertexes[i - 1].position).normalized;
+            else
+                tangent = (vertexes[i + 1].position - vertexes[i - 1].position).normalized;
+
+            if (tangent == Vector3.zero) continue;
+
+            // 3. Calculate Rotation based on toggle
+            if (rotateForward)
+            {
+                // Standard: The Z-axis (Forward) of the bone follows the curve
+                reflect_list[i].rotation = Quaternion.LookRotation(tangent, transform.up);
+            }
+            else
+            {
+                // Alternative: The Y-axis (Up) of the bone follows the curve
+                // We point the Forward arg at the "Up" of the sword so that the 
+                // result's Y-axis is forced to align with our tangent.
+                reflect_list[i].rotation = Quaternion.LookRotation(-transform.up, tangent);
+            }
         }
     }
 
