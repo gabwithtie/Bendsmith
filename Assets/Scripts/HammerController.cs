@@ -113,7 +113,7 @@ public class HammerController : MonoBehaviour
     {
         if (_holding)
         {
-            _dragdist += Mathf.LerpUnclamped(0, HammerStats.HammingMaxRadius, Time.deltaTime / RhythmManager.SecondsPerBeat);
+            _dragdist += (Time.deltaTime / RhythmManager.SecondsPerBeat) * HammerStats.HammingMaxRadius;
             _dragdist = Mathf.Clamp(_dragdist, 0, HammerStats.HammingMaxRadius);
             radiusVisualizer.SetT(_dragdist);
         }

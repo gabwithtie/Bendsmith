@@ -16,19 +16,17 @@ public class LoadingScreen : MonoSingleton<LoadingScreen>
     [SerializeField] private Animation blocker_animator;
     [SerializeField] private AnimationClip entry_anim;
     [SerializeField] private AnimationClip exit_anim;
-    [SerializeField] private GameObject signal_object;
 
     public static void LoadScreen(Action do_when_loading)
-    {
-        Instance.blocker_animator.Play(Instance.entry_anim.name);
-
-        Instance.StopAllCoroutines();
+    {Instance.StopAllCoroutines();
         Instance.StartCoroutine(Instance.Load(do_when_loading));
     }
 
     IEnumerator Load(Action do_when_loading)
     {
-        while (signal_object.activeSelf == false)
+        Instance.blocker_animator.Play(Instance.entry_anim.name);
+
+        while (blocker_animator.IsPlaying(entry_anim.name))
         {
             yield return null;
         }
