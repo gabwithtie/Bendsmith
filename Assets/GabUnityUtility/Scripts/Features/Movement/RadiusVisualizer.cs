@@ -14,9 +14,8 @@ namespace GabUnity
 
         public void SetT(float t)
         {
-            this.transform.localScale = new Vector3(t, t, t) * mult;
-            visualizer_object.SetActive(t > 0.01f);
-
+            visualizer_object.transform.localScale = new Vector3(t, t, t) * mult;
+            visualizer_object.SetActive(t > 0.001f);
         }
 
         public void SetMult(float _mult)

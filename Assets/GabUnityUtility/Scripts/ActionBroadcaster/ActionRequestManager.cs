@@ -23,6 +23,8 @@ namespace GabUnity
 
             Instance.handler_list.Add(handleType, new());
             Instance.handler_list[handleType].Add(handler);
+
+            Debug.Log("Registered Handler: " + handler.name + " of type: \"" + handleType.ToString() + "\"");
         }
 
         public static void UnregisterHandler(System.Type handleType, ActionRequestHandler_Base handler)

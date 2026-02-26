@@ -12,6 +12,8 @@ public class GameManager : MonoSingleton<GameManager>
     [Header("Level")]
     [SerializeField] private int current_level_index = 0;
     [SerializeField] private int current_max_level = 5;
+    [SerializeField] private int remainingHits = 10;
+    [SerializeField] private int maxHits = 10;
     [Header("Currency")]
     /// <summary>
     /// Defines how much currency is awarded per score point (0-100)
@@ -42,7 +44,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Start()
     {
-        curve_goal_generator.GenerateCurveGoal();
+        SetMainMode();
     }
 
     [ContextMenu("Submit Current Work")]
@@ -81,5 +83,10 @@ public class GameManager : MonoSingleton<GameManager>
     public void SetMainMode()
     {
         ActionRequestManager.Request(set_main_mode_request);
+    }
+
+    public void SetGameOver()
+    {
+
     }
 }

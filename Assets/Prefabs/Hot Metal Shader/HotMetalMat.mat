@@ -26,10 +26,11 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Heat: 1
-    - _MaxEmission: 1
+    - _Heat: 0.772
+    - _MaxEmission: 2
     - _QueueControl: 0
-    m_Colors: []
+    m_Colors:
+    - _BaseColor: {r: 0.6415094, g: 0.58401567, b: 0.5854651, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4331446795885128384

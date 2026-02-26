@@ -14,7 +14,17 @@ namespace GabUnity
 
     public class MonoSingleton<T> : MonoBehaviour, ISingleton<T> where T : MonoBehaviour
     {
-        public static T Instance { get => ISingleton<T>.Instance; private set => ISingleton<T>.Instance = value; }
+        public static T Instance { get {
+                var inst = ISingleton<T>.Instance;
+
+                if (inst == null)
+                {
+                    ISingleton<T>.Instance = FindAnyObjectByType<T>();
+                }
+
+                return ISingleton<T>.Instance;
+            }
+            private set => ISingleton<T>.Instance = value; }
 
         protected virtual void Awake()
         {

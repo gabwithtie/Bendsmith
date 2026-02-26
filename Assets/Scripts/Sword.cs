@@ -7,6 +7,7 @@ public class Sword : MonoBehaviour
 {
     // Vertexes of the sword skinned mesh (assumed to be in order from hilt to tip)
     [SerializeField] private List<Transform> vertexes;
+    [SerializeField] private List<Transform> reflect_list;
 
     [Header("Deformation Settings")]
     [SerializeField] private float length = 5.0f;
@@ -36,6 +37,44 @@ public class Sword : MonoBehaviour
         {
             float t = (float)i / (vertexes.Count - 1);
             vertexes[i].localPosition = new Vector3(0, 0, t * length);
+        }
+
+        ApplyToReflect();
+    }
+
+    public void ApplyToReflect(bool rotateForward = false)
+    {
+        if (reflect_list == null || vertexes == null || reflect_list.Count != vertexes.Count) return;
+
+        for (int i = 0; i < reflect_list.Count; i++)
+        {
+            // 1. Sync the position
+            reflect_list[i].position = vertexes[i].position;
+
+            // 2. Calculate the Tangent (Direction of the curve)
+            Vector3 tangent;
+            if (i == 0)
+                tangent = (vertexes[i + 1].position - vertexes[i].position).normalized;
+            else if (i == vertexes.Count - 1)
+                tangent = (vertexes[i].position - vertexes[i - 1].position).normalized;
+            else
+                tangent = (vertexes[i + 1].position - vertexes[i - 1].position).normalized;
+
+            if (tangent == Vector3.zero) continue;
+
+            // 3. Calculate Rotation based on toggle
+            if (rotateForward)
+            {
+                // Standard: The Z-axis (Forward) of the bone follows the curve
+                reflect_list[i].rotation = Quaternion.LookRotation(tangent, transform.up);
+            }
+            else
+            {
+                // Alternative: The Y-axis (Up) of the bone follows the curve
+                // We point the Forward arg at the "Up" of the sword so that the 
+                // result's Y-axis is forced to align with our tangent.
+                reflect_list[i].rotation = Quaternion.LookRotation(-transform.up, tangent);
+            }
         }
     }
 
@@ -74,6 +113,8 @@ public class Sword : MonoBehaviour
         // Equalize spacing along the new curve
         if(hitcount > 0)
             RedistributeVertexes();
+
+        ApplyToReflect();
     }
 
     public void RedistributeVertexes()
@@ -109,6 +150,8 @@ public class Sword : MonoBehaviour
             float targetDist = i * targetInterval;
             vertexes[i].position = GetPointOnPath(sampledPositions, targetDist);
         }
+
+        ApplyToReflect();
     }
 
     private Vector3 GetPointOnPath(Vector3[] path, float distance)

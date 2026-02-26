@@ -12,10 +12,7 @@ namespace GabUnity
         [SerializeField] private UnityEvent onExit;
         [SerializeField] private UnityEvent onClick;
 
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            onClick.Invoke();
-        }
+
 
         public override void OnPointerEnter(PointerEventData eventData)
         {
@@ -31,6 +28,11 @@ namespace GabUnity
 
             onHover.Invoke(false);
             onExit.Invoke();
+        }
+
+        void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+        {
+            onClick.Invoke();
         }
     }
 }
