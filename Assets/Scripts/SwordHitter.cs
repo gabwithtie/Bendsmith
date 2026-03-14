@@ -6,12 +6,20 @@ using UnityEngine.Events;
 [RequireComponent(typeof(ComboCounter))]
 public class SwordHitter : MonoBehaviour
 {
-    [SerializeField]private Sword sword;
-    [SerializeField]private RadiusVisualizer radiusVisualizer;
+    [SerializeField] private Sword sword;
+    [SerializeField] private RadiusVisualizer radiusVisualizer;
 
     [SerializeField] private UnityEvent<float> onSetQuantizedDuration;
     [SerializeField] private UnityEvent<Vector3> onCommitHit;
     [SerializeField] private UnityEvent onActualHit;
+
+    // --- new sprite fields ---
+    [Header("Hit Feedback Sprites")]
+    [SerializeField] private Sprite hitSpriteGood;
+    [SerializeField] private Sprite hitSpriteEarly;
+    [SerializeField] private Sprite hitSpriteLate;
+    [SerializeField] private float hitSpriteScale = 1f;
+    [SerializeField] private float hitSpriteLifetime = 0.6f;
 
     private ComboCounter _comboCounter;
 
@@ -49,7 +57,7 @@ public class SwordHitter : MonoBehaviour
 
         if (_waitingforhit)
             return;
-        
+
         float delay = QuantizedEventInvoker.InvokeOnNext(Hit);
         onSetQuantizedDuration.Invoke(delay);
         onCommitHit.Invoke(_holdpos);
@@ -57,26 +65,29 @@ public class SwordHitter : MonoBehaviour
         _waitingforhit = true;
 
         bool goodrelease = RhythmManager.IsGood(out int rhythmresult);
-        Color textcolor = goodrelease ? Color.green : Color.red;
-        var hittext = "";
-        if(goodrelease)
-        {
-            hittext = "Good!";
-            hittext += Environment.NewLine + "x" + _comboCounter.Combo;
 
+        // choose sprite based on result (no tinting)
+        Sprite chosen = null;
+        if (goodrelease)
+        {
+            chosen = hitSpriteGood;
             _comboCounter.RegisterCombo();
         }
         else
         {
             if (rhythmresult < 0)
-                hittext = "Early";
+                chosen = hitSpriteEarly;
             else if (rhythmresult > 0)
-                hittext = "Late";
+                chosen = hitSpriteLate;
 
             _comboCounter.ResetCombo();
         }
 
-        TextParticle.SpawnText(hittext, _holdpos, 1, 0.3f, textcolor);
+        if (chosen != null)
+        {
+            // Pass Color.white to avoid tinting the sprite
+            SpriteParticle.SpawnSprite(chosen, _holdpos, hitSpriteScale, hitSpriteLifetime, Color.white);
+        }
     }
 
     public void Hit()
