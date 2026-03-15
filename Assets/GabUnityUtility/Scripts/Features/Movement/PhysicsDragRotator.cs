@@ -29,8 +29,11 @@ namespace GabUnity
 
             var rotationSpeed = (inputdelta * sensitivity) / Time.fixedDeltaTime;
 
+            var newvel = new Vector3(0, rotationSpeed.x, 0) * Mathf.Deg2Rad;
+            newvel += -rotationSpeed.y * MainCamera.Instance.transform.right * Mathf.Deg2Rad;
+
             // Apply rotation specifically to the Y axis (up/down axis)
-            _rb.angularVelocity = new Vector3(-rotationSpeed.y, rotationSpeed.x, 0) * Mathf.Deg2Rad;
+            _rb.angularVelocity = newvel;
         }
 
         void IPointerUpHandler.OnPointerUp(PointerEventData eventData)

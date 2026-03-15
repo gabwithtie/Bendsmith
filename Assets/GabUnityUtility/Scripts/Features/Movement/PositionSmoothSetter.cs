@@ -86,7 +86,7 @@ namespace GabUnity
             }
 
             transform.localPosition = Vector3.Lerp(pos_a, pos_b, final_t);
-            transform.localRotation = Quaternion.Euler(Vector3.Lerp(rot_a, rot_b, final_t));
+            transform.localRotation = Quaternion.Slerp(Quaternion.Euler(rot_a), Quaternion.Euler(rot_b), final_t);
         }
 
         public static float EaseInQuad(float t)
