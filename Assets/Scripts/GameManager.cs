@@ -1,4 +1,5 @@
 using GabUnity;
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,11 +10,24 @@ public class GameManager : MonoSingleton<GameManager>
     private Sword sword;
     private CurveGoalGenerator curve_goal_generator;
 
+    enum GameMode
+    {
+        Main,
+        Upgrade
+    }
+
+    [Header("Runtime")]
+    [SerializeField] private GameMode cur_mode = GameMode.Main;
+    [SerializeField] private int cur_durability = 1;
+    [SerializeField] private float time_left = 0;
+    [SerializeField] private int default_timelimit = 30;
+
     [Header("Level")]
+    [SerializeField] private int current_set_index = 0;
     [SerializeField] private int current_level_index = 0;
-    [SerializeField] private int current_max_level = 5;
-    [SerializeField] private int remainingHits = 10;
-    [SerializeField] private int maxHits = 10;
+    [SerializeField] private int min_max_level = 2;
+    [SerializeField] private int max_max_level = 10;
+    [SerializeField] private int peak_set = 20;
     [Header("Currency")]
     /// <summary>
     /// Defines how much currency is awarded per score point (0-100)
@@ -28,23 +42,55 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private UnityEvent<int> onSubmit;
     [SerializeField] private ActionRequest set_upgrade_mode_request;
     [SerializeField] private ActionRequest set_main_mode_request;
-    
+    [SerializeField] private ActionRequest game_over_request;
+    [Header("Events")]
+    [SerializeField] private UnityEvent<float> onChangeTimeRatio;
+    [SerializeField] private UnityEvent<int> onChangeDurability;
+
     [Header("States")]
     [SerializeField] private bool submittable;
 
+    public bool Submittable => submittable;
     public void SetSubmittable(bool _value) => submittable = _value;
+    
+    private ComboCounter _comboCounter;
+    private int current_max_level => (int)Mathf.Lerp(min_max_level, max_max_level, (float)current_set_index / peak_set);
 
     protected override void Awake()
     {
         base.Awake();
 
+        time_left = default_timelimit;
+
         sword = FindAnyObjectByType<Sword>();
+        _comboCounter = FindAnyObjectByType<ComboCounter>();
         curve_goal_generator = FindAnyObjectByType<CurveGoalGenerator>();
     }
 
     private void Start()
     {
         SetMainMode();
+    }
+
+    private void Update()
+    {
+        if (cur_mode == GameMode.Main)
+        {
+            time_left -= Time.deltaTime;
+            
+            if (submittable)
+            {
+                onChangeTimeRatio.Invoke(time_left / default_timelimit);
+            }
+
+            if (time_left < 0 && submittable)
+                SubmitWork();
+        }   
+    }
+
+    public void AddHeat(float secs)
+    {
+        time_left += secs;
     }
 
     [ContextMenu("Submit Current Work")]
@@ -59,6 +105,7 @@ public class GameManager : MonoSingleton<GameManager>
         onSubmit.Invoke(currency);
 
         //RENEWAL
+        time_left = default_timelimit;
         curve_goal_generator.GenerateCurveGoal();
         sword.ResetSword();
         SetSubmittable(false);
@@ -73,6 +120,40 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
+    public void CommitHit(Vector3 pos)
+    {
+        bool goodrelease = RhythmManager.IsGood(out int rhythmresult);
+        Color textcolor = goodrelease ? Color.green : Color.red;
+        var hittext = "";
+        if (goodrelease)
+        {
+            hittext = "Good!";
+            hittext += Environment.NewLine + "x" + _comboCounter.Combo;
+
+            _comboCounter.RegisterCombo();
+        }
+        else
+        {
+            if (rhythmresult < 0)
+                hittext = "Early";
+            else if (rhythmresult > 0)
+                hittext = "Late";
+
+            _comboCounter.ResetCombo();
+
+            cur_durability--;
+            onChangeDurability.Invoke(cur_durability);
+
+            if (cur_durability <= 0)
+            {
+                //End Game Here
+                SetGameOver();
+            }
+        }
+        
+        TextParticle.SpawnText(hittext, pos, 1, 0.3f, textcolor);
+    }
+
     [ContextMenu("Set Upgrade Mode")]
     public void SetUpgradeMode()
     {
@@ -85,8 +166,21 @@ public class GameManager : MonoSingleton<GameManager>
         ActionRequestManager.Request(set_main_mode_request);
     }
 
+    public void OnUpgradeMode()
+    {
+        cur_mode = GameMode.Upgrade;
+    }
+
+    public void OnMainMode()
+    {
+        cur_mode = GameMode.Main;
+
+        cur_durability = HammerStats.MaxHammerDurability;
+        onChangeDurability.Invoke(cur_durability);
+    }
+
     public void SetGameOver()
     {
-
+        ActionRequestManager.Request(game_over_request);
     }
 }

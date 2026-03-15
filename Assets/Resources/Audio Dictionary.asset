@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a45b65e6aac08f45b6781d25406da73, type: 3}
   m_Name: Audio Dictionary
   m_EditorClassIdentifier: Assembly-CSharp::GabUnity.AudioDictionary
-  fallback: {fileID: 0}
+  fallback: {fileID: 8300000, guid: 8e2295f1f2c84d844965d8dfc5050a58, type: 3}
   main_dictionary:
     structs:
-    - Key: test
-      Value: {fileID: 0}
-    - Key: shoot
-      Value: {fileID: 0}
+    - Key: splat
+      Value: {fileID: 8300000, guid: 8e2295f1f2c84d844965d8dfc5050a58, type: 3}
   sub_dictionaries: []

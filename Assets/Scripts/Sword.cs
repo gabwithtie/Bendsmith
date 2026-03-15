@@ -114,6 +114,8 @@ public class Sword : MonoBehaviour
         if(hitcount > 0)
             RedistributeVertexes();
 
+        Debug.Log("[Sword]: Hit " + hitcount + " Vertexes. With Radius:" + radius);
+
         ApplyToReflect();
     }
 
