@@ -10870,7 +10870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GabUnity.AudioOneShotter
   clips:
-  - {fileID: 8300000, guid: a822a23a912834b43aeb7da3af508398, type: 3}
+  - {fileID: 8300000, guid: 0960e46870c01164fad6f1aa0ea29114, type: 3}
   auto_increment: 0
 --- !u!82 &1305308885
 AudioSource:
