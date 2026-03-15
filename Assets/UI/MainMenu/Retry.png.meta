@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a6c688d03f844d545a74725c05f6e199
+guid: 9f9a54d47664b244d9c50c5cf1e622aa
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -94,7 +94,33 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -110,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: nice_0
+      name: Retry_0
       rect:
         serializedVersion: 2
-        x: 507
-        y: 413
-        width: 1108
-        height: 707
+        x: 273
+        y: 567
+        width: 1476
+        height: 609
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,8 +151,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 334b089d6a56cbd468d26af012048e4d
-      internalID: -1594212834
+      spriteID: 7f4cda2e6cba9a44fa0c93f13028dcb4
+      internalID: 1408229261
       vertices: []
       indices: 
       edges: []
@@ -135,7 +161,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 66eb76b51cf0a1d4abfbadd4af9dc5cd
+    spriteID: 2804ed86a612869468bd1ec4783f72c4
     internalID: 0
     vertices: []
     indices: 
@@ -145,7 +171,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      nice_0: -1594212834
+      Retry_0: 1408229261
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

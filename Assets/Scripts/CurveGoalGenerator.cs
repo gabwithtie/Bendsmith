@@ -57,7 +57,7 @@ public class CurveGoalGenerator : MonoBehaviour
     /// grading the difference in X-displacement.
     /// Returns 1 for a perfect match, 0 for maximum deviation.
     /// </summary>
-    public float GetNormalizedPositionScore(List<Vector3> playerSword, List<Vector3> goalCurve, float maxXError = 0.5f)
+    public float GetNormalizedPositionScore(List<Vector3> playerSword, List<Vector3> goalCurve, float maxXError = 0.01f)
     {
         if (playerSword == null || goalCurve == null || playerSword.Count < 2 || goalCurve.Count < 2)
             return 0f;

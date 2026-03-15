@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fcd75d28db4ee0c45ad3bc89e5b0004a
+guid: 5e842ba27f6d85b4f9186a50777c081c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -39,7 +39,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -53,7 +53,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -94,7 +94,33 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -110,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Start Button Round_0
+      name: Game OVer_0
       rect:
         serializedVersion: 2
-        x: 555
-        y: 571
-        width: 990
-        height: 326
+        x: 0
+        y: 674
+        width: 2077
+        height: 509
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,33 +151,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7f4ee8000129d54096c8da368c6142f
-      internalID: 1638866497
+      spriteID: a23e0a3fa21d4f94dbe756016c91f736
+      internalID: 252785815
       vertices: []
       indices: 
       edges: []
       weights: []
-    outline:
-    - - {x: 500.39062, y: -143.02803}
-      - {x: 500.39062, y: 104.066986}
-      - {x: 486.03516, y: 139.95215}
-      - {x: -501.41602, y: 139.95215}
-      - {x: -501.41602, y: -183.01436}
-      - {x: 464.50195, y: -183.01436}
+    outline: []
     customData: 
-    physicsShape:
-    - - {x: 491.1621, y: -143.02803}
-      - {x: 497.31445, y: -97.915245}
-      - {x: 497.31445, y: 84.586464}
-      - {x: 454.24805, y: 136.87628}
-      - {x: -468.60352, y: 136.87628}
-      - {x: -498.33984, y: 114.31989}
-      - {x: -498.33984, y: -137.90157}
-      - {x: -487.06055, y: -179.93848}
-      - {x: 427.5879, y: -179.93848}
+    physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 8b36c01b71db53346999fa9045b390de
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -160,7 +171,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Start Button Round_0: 1638866497
+      Game OVer_0: 252785815
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

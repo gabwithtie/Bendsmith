@@ -29,6 +29,9 @@ namespace GabUnity
 
         public static void UnregisterHandler(System.Type handleType, ActionRequestHandler_Base handler)
         {
+            if (Instance == null)
+                return;
+
             if (Instance.handler_list.ContainsKey(handleType))
             {
                 Instance.handler_list[handleType].Remove(handler);

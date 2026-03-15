@@ -151,10 +151,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 402203569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000004623871}
-  m_SizeDelta: {x: 426.1433, y: 449.94}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 200.00003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &246891252
 MonoBehaviour:
@@ -170,22 +170,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: -388303672, guid: 0cc672a74a3189e49b302e34977e9e9e, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
+  m_Type: 1
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.95
 --- !u!222 &246891253
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -309,8 +309,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -123}
-  m_SizeDelta: {x: 146.1982, y: 51.3955}
+  m_AnchoredPosition: {x: -185.99991, y: 71.53195}
+  m_SizeDelta: {x: 422.3317, y: 169.0068}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &366147615
 MonoBehaviour:
@@ -390,7 +390,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 162489601, guid: 9890b1e5a8dbda546b56b8d85fe7e3e0, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -432,7 +432,6 @@ GameObject:
   - component: {fileID: 402203568}
   - component: {fileID: 402203567}
   - component: {fileID: 402203566}
-  - component: {fileID: 402203570}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -497,8 +496,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -524,64 +523,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &402203570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 402203565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f1b2ec14ab049346aa62b73ed0bdb1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GabUnity.GenericActionRequestHandler
-  request_events: []
---- !u!1 &494738600
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 494738601}
-  - component: {fileID: 494738602}
-  m_Layer: 0
-  m_Name: Audio Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &494738601
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494738600}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1431349652}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &494738602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494738600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 272f0ba78b583094cabb51d6a52c59aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GabUnity.AudioManager
-  soundThreshold: 0.08
 --- !u!1 &588780338
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,8 +558,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -65.999985}
-  m_SizeDelta: {x: 146.1982, y: 51.3955}
+  m_AnchoredPosition: {x: -185.99991, y: 258.96844}
+  m_SizeDelta: {x: 422.3317, y: 169.0068}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &588780340
 MonoBehaviour:
@@ -686,7 +627,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -1933202917, guid: a3aadd62b6f078d48959988915fc784a, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -738,8 +679,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 0}
-  m_SizeDelta: {x: 135.3423, y: 39.5686}
+  m_AnchoredPosition: {x: -186, y: 476}
+  m_SizeDelta: {x: 342.6407, y: 130.1158}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1183704215
 MonoBehaviour:
@@ -819,7 +760,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -1893519092, guid: 693563557281f3e41b75349e420252ec, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -882,56 +823,11 @@ RectTransform:
   - {fileID: 366147614}
   m_Father: {fileID: 402203569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 133, y: -108}
-  m_SizeDelta: {x: 221.96136, y: 64.8925}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1431349650
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1431349652}
-  - component: {fileID: 1431349651}
-  m_Layer: 0
-  m_Name: Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1431349651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431349650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3070566f46482f440854d709c66b9c4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GabUnity.ManagerManager
---- !u!4 &1431349652
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431349650}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 327.96634, y: 104.2989, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 494738601}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 221.96136, y: 64.89252}
+  m_Pivot: {x: 1, y: 0}
 --- !u!1 &1433373148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,6 +1098,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 1839498779}
   - {fileID: 1433373150}
-  - {fileID: 1431349652}
   - {fileID: 402203569}
   - {fileID: 340845536}

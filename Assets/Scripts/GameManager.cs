@@ -21,6 +21,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private int cur_durability = 1;
     [SerializeField] private float time_left = 0;
     [SerializeField] private int default_timelimit = 30;
+    [SerializeField]private float cur_score = 0;
 
     [Header("Level")]
     [SerializeField] private int current_set_index = 0;
@@ -46,6 +47,7 @@ public class GameManager : MonoSingleton<GameManager>
     [Header("Events")]
     [SerializeField] private UnityEvent<float> onChangeTimeRatio;
     [SerializeField] private UnityEvent<int> onChangeDurability;
+    [SerializeField] private UnityEvent<float> OnChangeScore;
 
     [Header("States")]
     [SerializeField] private bool submittable;
@@ -152,6 +154,12 @@ public class GameManager : MonoSingleton<GameManager>
         }
         
         TextParticle.SpawnText(hittext, pos, 1, 0.3f, textcolor);
+    }
+
+    public void OnActualHit()
+    {
+        cur_score = curve_goal_generator.Compare(sword.GetCurrentCurve());
+        OnChangeScore.Invoke(cur_score);
     }
 
     [ContextMenu("Set Upgrade Mode")]
