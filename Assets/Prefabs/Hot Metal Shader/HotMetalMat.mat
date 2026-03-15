@@ -26,7 +26,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Heat: -0.00012057284
+    - _Heat: 0.7782036
     - _MaxEmission: 2
     - _QueueControl: 0
     m_Colors:
