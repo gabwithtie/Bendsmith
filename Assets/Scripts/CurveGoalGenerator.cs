@@ -7,7 +7,12 @@ public class CurveGoalGenerator : MonoBehaviour
     [SerializeField] private int vertex_count = 16;
     [SerializeField] private int bend_count = 3;
     [SerializeField] private float amplitude_mult = 1.0f;
+    [SerializeField] private float amplitude_deviation = 0.3f;
+    [SerializeField] private int bend_deviation = 1;
+    [SerializeField] private Vector2 score_remap = new Vector2(-1, 1);
     [SerializeField] private UnityEvent<List<Vector3>> OnGenerate;
+
+    public int BendCount { get => bend_count; set => bend_count = value; }
 
     private List<Vector3> current_curve;
 
@@ -22,6 +27,9 @@ public class CurveGoalGenerator : MonoBehaviour
         float randomPhase = Random.Range(0f, 100f);
         float randomFreqOffset = Random.Range(0.8f, 1.2f);
 
+        float amp_now = amplitude_mult + Random.Range(-amplitude_deviation, amplitude_deviation);
+        int bend_now = bend_count - Random.Range(0, bend_deviation);
+
         for (int i = 0; i < vertex_count; i++)
         {
             float t = i / (float)(vertex_count - 1);
@@ -31,8 +39,8 @@ public class CurveGoalGenerator : MonoBehaviour
 
             // Create a compound wave based on bend_count
             // Using Sin(t * pi * bends) ensures the hilt (t=0) starts at 0
-            float xPos = Mathf.Sin(t * Mathf.PI * bend_count * randomFreqOffset + randomPhase)
-                         * t * amplitude_mult;
+            float xPos = Mathf.Sin(t * Mathf.PI * bend_now * randomFreqOffset + randomPhase)
+                         * t * amp_now;
 
             current_curve.Add(new Vector3(xPos, 0, zPos));
         }
@@ -49,7 +57,9 @@ public class CurveGoalGenerator : MonoBehaviour
         if (current_curve == null || current_curve.Count < 2 || other == null || other.Count < 2)
             return 0;
 
-        return GetNormalizedPositionScore(other, current_curve, amplitude_mult * 0.5f);
+        var score = GetNormalizedPositionScore(other, current_curve, amplitude_mult * 0.5f);
+
+        return Mathf.Lerp(score_remap.x, score_remap.y, score);
     }
 
     /// <summary>

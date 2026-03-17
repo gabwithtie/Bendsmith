@@ -13,22 +13,35 @@ public class GameManager : MonoSingleton<GameManager>
     enum GameMode
     {
         Main,
-        Upgrade
+        Upgrade,
+        Over
     }
 
     [Header("Runtime")]
     [SerializeField] private GameMode cur_mode = GameMode.Main;
-    [SerializeField] private int cur_durability = 1;
+    [SerializeField] private int _cur_durability = 1;
     [SerializeField] private float time_left = 0;
     [SerializeField] private int default_timelimit = 30;
-    [SerializeField]private float cur_score = 0;
+    [SerializeField] private float cur_score = 0;
+
+    private int cur_durability
+    {
+        get => _cur_durability;
+        set {
+            _cur_durability = value;
+            onChangeDurability.Invoke(_cur_durability);
+        }
+    }
 
     [Header("Level")]
     [SerializeField] private int current_set_index = 0;
     [SerializeField] private int current_level_index = 0;
     [SerializeField] private int min_max_level = 2;
     [SerializeField] private int max_max_level = 10;
+    [SerializeField] private int min_bend = 2;
+    [SerializeField] private int max_bend = 5;
     [SerializeField] private int peak_set = 20;
+    [SerializeField] private int bad_sword_penalty = 2;
     [Header("Currency")]
     /// <summary>
     /// Defines how much currency is awarded per score point (0-100)
@@ -48,6 +61,9 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private UnityEvent<float> onChangeTimeRatio;
     [SerializeField] private UnityEvent<int> onChangeDurability;
     [SerializeField] private UnityEvent<float> OnChangeScore;
+    [SerializeField] private UnityEvent OnGoodHit;
+    [SerializeField] private UnityEvent OnLateHit;
+    [SerializeField] private UnityEvent OnEarlyHit;
 
     [Header("States")]
     [SerializeField] private bool submittable;
@@ -87,7 +103,12 @@ public class GameManager : MonoSingleton<GameManager>
 
             if (time_left < 0 && submittable)
                 SubmitWork();
-        }   
+
+            if (cur_durability <= 0)
+            {
+                SetGameOver();
+            }
+        }
     }
 
     public void AddHeat(float secs)
@@ -102,12 +123,18 @@ public class GameManager : MonoSingleton<GameManager>
 
         //SCORING
         float score = curve_goal_generator.Compare(sword.GetCurrentCurve()) * 100;
+
+        if (score < 0)
+            cur_durability -= bad_sword_penalty;
+
         int currency = Mathf.RoundToInt(score * score_to_currency_mult);
         CurrencyManager.Add(currencyInfo, currency);
         onSubmit.Invoke(currency);
 
         //RENEWAL
         time_left = default_timelimit;
+        var newbendcount = (int)Mathf.Lerp(min_bend, max_bend, (float)current_set_index / peak_set);
+        curve_goal_generator.BendCount = newbendcount;
         curve_goal_generator.GenerateCurveGoal();
         sword.ResetSword();
         SetSubmittable(false);
@@ -133,27 +160,26 @@ public class GameManager : MonoSingleton<GameManager>
             hittext += Environment.NewLine + "x" + _comboCounter.Combo;
 
             _comboCounter.RegisterCombo();
+
+            OnGoodHit.Invoke();
         }
         else
         {
             if (rhythmresult < 0)
+            {
+                OnEarlyHit.Invoke();
                 hittext = "Early";
+            }
             else if (rhythmresult > 0)
+            {
+                OnLateHit.Invoke();
                 hittext = "Late";
+            }
 
             _comboCounter.ResetCombo();
 
             cur_durability--;
-            onChangeDurability.Invoke(cur_durability);
-
-            if (cur_durability <= 0)
-            {
-                //End Game Here
-                SetGameOver();
-            }
         }
-        
-        TextParticle.SpawnText(hittext, pos, 1, 0.3f, textcolor);
     }
 
     public void OnActualHit()
@@ -189,6 +215,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void SetGameOver()
     {
+        cur_mode = GameMode.Over;
+
         ActionRequestManager.Request(game_over_request);
     }
 }

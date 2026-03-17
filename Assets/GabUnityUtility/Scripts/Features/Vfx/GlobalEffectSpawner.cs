@@ -8,6 +8,8 @@ namespace GabUnity
         [SerializeField] private Vector3 default_direction;
         [SerializeField] private Vector3 default_pos;
 
+        public string Effect_id { get => effect_id; set => effect_id = value; }
+
         public void SetPos(Vector3 pos)
         {
             default_pos = pos;

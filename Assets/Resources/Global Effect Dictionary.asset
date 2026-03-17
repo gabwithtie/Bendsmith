@@ -15,8 +15,10 @@ MonoBehaviour:
   fallback: {fileID: 0}
   main_dictionary:
     structs:
-    - Key: hammerhit
-      Value: {fileID: 9015868241533785071, guid: 92539a3816a02934f8d43bf1166629aa, type: 3}
-    - Key: splat
-      Value: {fileID: 9081881733062330879, guid: cee6082f80389b44f948cd10ab10284a, type: 3}
+    - Key: hammerhit_good
+      Value: {fileID: 9015868241533785071, guid: 4bc28641fc7b6344ba18fd66c87a5811, type: 3}
+    - Key: hammerhit_late
+      Value: {fileID: 9015868241533785071, guid: 98b2c7fbb4d61f640aa1ba4393d733fc, type: 3}
+    - Key: hammerhit_early
+      Value: {fileID: 9015868241533785071, guid: 7efdd0fecf9e68540b057c732217da34, type: 3}
   sub_dictionaries: []
