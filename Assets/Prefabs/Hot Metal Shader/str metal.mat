@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HotMetalMat
+  m_Name: str metal
   m_Shader: {fileID: -6465566751694194690, guid: 16a26384ddacdee409eb831696cbee7f, type: 3}
   m_Parent: {fileID: -876546973899608171, guid: 16a26384ddacdee409eb831696cbee7f, type: 3}
   m_ModifiedSerializedProperties: 0
@@ -26,11 +26,11 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Heat: 0.7752692
+    - _Heat: 0.7
     - _MaxEmission: 2
     - _QueueControl: 0
     m_Colors:
-    - _BaseColor: {r: 0.6415094, g: 0.58401567, b: 0.5854651, a: 1}
+    - _BaseColor: {r: 0.9528302, g: 0.84046817, b: 0.84046817, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4331446795885128384

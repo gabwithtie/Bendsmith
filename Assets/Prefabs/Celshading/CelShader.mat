@@ -39,11 +39,11 @@ Material:
     m_Floats:
     - _ColorThreshold: 0.001
     - _Cuts: 3
-    - _DepthScaling: 83.72
+    - _DepthScaling: 50
     - _DistanceThreshold: 0.122
     - _NormalThreshold: 1.76
-    - _SamplingDistance: 0.00373
+    - _SamplingDistance: 0.004
     m_Colors:
-    - _Outline_Color: {r: 0.37936097, g: 0.39679936, b: 0.5188679, a: 0}
+    - _Outline_Color: {r: 0.35866857, g: 0.37374252, b: 0.49056602, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
